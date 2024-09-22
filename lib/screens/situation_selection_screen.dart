@@ -1,3 +1,4 @@
+import 'package:firstaid/screens/user_information_screen.dart';
 import 'package:flutter/material.dart';
 import '../models/situation.dart';
 import 'first_aid_steps_screen.dart';
@@ -85,6 +86,20 @@ class SituationSelectionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('First Aid Situations'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MyInfoScreen(),
+                )
+              );
+            }, 
+            icon: const Icon(Icons.info_outline),
+            iconSize: 35,
+          )
+        ],
       ),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
