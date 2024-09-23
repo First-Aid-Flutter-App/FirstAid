@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/situation_selection_screen.dart';
+import 'screens/main_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,11 +9,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'First Aid Guide',
+      title: 'First Aid App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SituationSelectionScreen(),
+      home: MainScreen(),
     );
   }
 }
