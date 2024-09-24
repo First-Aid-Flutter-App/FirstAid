@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firstaid/notifiers/first_aid_steps_notifier.dart';
+import 'package:firstaid/providers/situation_provider.dart';
 
 class FirstAidStepsScreen extends ConsumerWidget {
-  final List<String> steps;
+  final String id;
 
-  const FirstAidStepsScreen({super.key, required this.steps});
+  FirstAidStepsScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _checked = ref.watch(firstAidStepsProvider(steps.length));
-    final _stepsNotifier = ref.read(firstAidStepsProvider(steps.length).notifier);
+    final situation = ref.watch(situationProvider(id));
+    final _checked = ref.watch(firstAidStepsProvider(id));
+    final _stepsNotifier = ref.read(firstAidStepsProvider(id).notifier);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('First Aid Steps'),
       ),
       body: ListView.builder(
-        itemCount: steps.length,
+        itemCount: situation.steps.length,
         itemBuilder: (context, index) {
           return Card(
             margin: EdgeInsets.all(8),
@@ -25,10 +27,10 @@ class FirstAidStepsScreen extends ConsumerWidget {
               leading: Checkbox(
                 value: _checked[index],
                 onChanged: (bool? value) {
-                  _stepsNotifier.toggleStep(index);
+                  _stepsNotifier.toggleStep(id, index);
                 },
               ),
-              title: Text(steps[index]),
+              title: Text(situation.steps[index]),
             ),
           );
         },
