@@ -23,7 +23,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "stable"
+          channel: "stable"
       - name: Run Dart format
         run: dart format --set-exit-if-changed .
 
@@ -35,7 +35,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "stable"
+          channel: "stable"
       - name: Run analyzer
         run: flutter analyze
 
@@ -47,7 +47,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "stable"
+          channel: "stable"
       - name: Update Golden tests
         run: flutter test --update-goldens
       - name: Run tests
@@ -63,7 +63,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "stable"
+          channel: "stable"
 
       - name: Set up JDK
         uses: actions/setup-java@v3
