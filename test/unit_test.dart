@@ -21,8 +21,7 @@ void main() {
       'Step 2: Stop the bleeding',
       'Step 3: Clean the wound',
       'Step 4: Bandage the wound',
-      ]
-    );
+    ]);
   });
 
   test('create a situation object #2', () {
@@ -39,10 +38,9 @@ void main() {
     expect(situation.text, 'Fainting');
     expect(situation.steps.length, 3);
     expect(situation.steps, [
-        'Step 1: Lay the person down',
-        'Step 2: Elevate their legs',
-        'Step 3: Check for breathing',
-      ]
-    );
+      'Step 1: Lay the person down',
+      'Step 2: Elevate their legs',
+      'Step 3: Check for breathing',
+    ]);
   });
 }

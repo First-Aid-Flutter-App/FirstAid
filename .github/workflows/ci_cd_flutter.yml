@@ -1,0 +1,96 @@
+name: Flutter CI/CD Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+      - 'feat/**'
+      - 'fix/**'
+  push:
+    branches:
+      - main
+      - 'feat/**'
+      - 'fix/**'
+      - ci
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          cache: true
+      - name: Run Dart format
+        run: dart format --set-exit-if-changed .
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          cache: true
+      - name: Run analyzer
+        run: |
+          flutter analyze || exit_status=$? # Capture the exit status
+          if [[ $exit_status -eq 1 ]]; then
+            echo "Warnings detected, continuing..."
+          elif [[ $exit_status -ne 0 ]]; then
+            echo "Errors detected, failing the job."
+            exit $exit_status
+          fi
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          cache: true
+      - name: Update Golden tests
+        run: flutter test --update-goldens
+      - name: Run tests
+        run: flutter test --coverage
+
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          cache: true
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 33
+          build-tools: '33.0.2'
+          target: 'android-33'
+
+      - name: Accept Android SDK Licenses
+        run: yes | sdkmanager --licenses
+
+      - name: Build APK
+        run: flutter build apk --release

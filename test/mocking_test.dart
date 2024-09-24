@@ -5,7 +5,6 @@ import 'mocking_test.mocks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @GenerateMocks([SharedPreferences])
-
 void main() {
   final mockPrefs = MockSharedPreferences();
 
@@ -25,9 +24,12 @@ void main() {
     });
 
     test('saves health info to SharedPreferences', () async {
-      when(mockPrefs.setString('bloodType', 'B+')).thenAnswer((_) async => true);
-      when(mockPrefs.setString('allergies', 'None')).thenAnswer((_) async => true);
-      when(mockPrefs.setString('medicalConditions', 'Diabetes')).thenAnswer((_) async => true);
+      when(mockPrefs.setString('bloodType', 'B+'))
+          .thenAnswer((_) async => true);
+      when(mockPrefs.setString('allergies', 'None'))
+          .thenAnswer((_) async => true);
+      when(mockPrefs.setString('medicalConditions', 'Diabetes'))
+          .thenAnswer((_) async => true);
 
       mockPrefs.setString('bloodType', 'B+');
       mockPrefs.setString('allergies', 'None');

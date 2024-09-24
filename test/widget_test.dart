@@ -6,7 +6,9 @@ import 'package:firstaid/screens/situation_selection_screen.dart';
 import 'package:firstaid/widgets/situation_card.dart';
 
 void main() {
-  testWidgets('first_aid_steps_screen displays all steps and handles checkboxes correctly', (WidgetTester tester) async {
+  testWidgets(
+      'first_aid_steps_screen displays all steps and handles checkboxes correctly',
+      (WidgetTester tester) async {
     final steps = ['Step 1: Do this', 'Step 2: Do that'];
 
     await tester.pumpWidget(MaterialApp(
@@ -28,7 +30,9 @@ void main() {
     expect(tester.widget<Checkbox>(find.byType(Checkbox).first).value, isTrue);
   });
 
-  testWidgets('situation_selection_screen displays situations and navigates to first_aid_steps_screen correctly', (WidgetTester tester) async {
+  testWidgets(
+      'situation_selection_screen displays situations and navigates to first_aid_steps_screen correctly',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
       home: SituationSelectionScreen(),
     ));
@@ -46,7 +50,8 @@ void main() {
     expect(find.text('Step 4: Bandage the wound'), findsOneWidget);
   });
 
-  testWidgets('situation_card displays correct text and emoji', (WidgetTester tester) async {
+  testWidgets('situation_card displays correct text and emoji',
+      (WidgetTester tester) async {
     final situation = Situation(
       emoji: '🩹',
       text: 'Injuries',
@@ -71,7 +76,8 @@ void main() {
     expect(find.text('Injuries'), findsOneWidget);
   });
 
-  testWidgets('situation_card calls onTap when tapped', (WidgetTester tester) async {
+  testWidgets('situation_card calls onTap when tapped',
+      (WidgetTester tester) async {
     bool wasTapped = false;
 
     final situation = Situation(

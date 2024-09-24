@@ -18,7 +18,8 @@ class _CPRTimerWidgetState extends State<CPRTimerWidget> {
       _compressionCount = 0;
     });
 
-    _timer = Timer.periodic(Duration(milliseconds: (60000 / bpm).round()), (Timer timer) {
+    _timer = Timer.periodic(Duration(milliseconds: (60000 / bpm).round()),
+        (Timer timer) {
       setState(() {
         _compressionCount++;
       });
@@ -45,13 +46,14 @@ class _CPRTimerWidgetState extends State<CPRTimerWidget> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Give 2 Rescue Breaths"),
-          content: Text("Press 'Continue' after performing the rescue breaths."),
+          content:
+              Text("Press 'Continue' after performing the rescue breaths."),
           actions: [
             TextButton(
               child: Text("Continue"),
               onPressed: () {
                 Navigator.of(context).pop();
-                startTimer();  // Restart the metronome after the rescue breaths
+                startTimer(); // Restart the metronome after the rescue breaths
               },
             ),
           ],
@@ -76,8 +78,7 @@ class _CPRTimerWidgetState extends State<CPRTimerWidget> {
         Center(
           child: Text(
             'Compressions: $_compressionCount',
-            style: const TextStyle(
-                fontSize: 32, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
         ),
 
@@ -88,7 +89,9 @@ class _CPRTimerWidgetState extends State<CPRTimerWidget> {
           child: Icon(
             Icons.favorite,
             size: 100,
-            color: _compressionCount % 2 == 0 ? Colors.red : Colors.grey,  // Alternate colors to simulate a beat
+            color: _compressionCount % 2 == 0
+                ? Colors.red
+                : Colors.grey, // Alternate colors to simulate a beat
           ),
         ),
 
