@@ -3,89 +3,91 @@ import 'package:flutter/material.dart';
 import '../models/situation.dart';
 import 'first_aid_steps_screen.dart';
 import '../widgets/situation_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SituationSelectionScreen extends StatelessWidget {
-  final List<Situation> situations = [
-    Situation(
-      emoji: '🩹',
-      text: 'Injuries',
-      steps: [
-        'Step 1: Assess the situation',
-        'Step 2: Stop the bleeding',
-        'Step 3: Clean the wound',
-        'Step 4: Bandage the wound',
-      ],
-    ),
-    Situation(
-      emoji: '😵',
-      text: 'Fainting',
-      steps: [
-        'Step 1: Lay the person down',
-        'Step 2: Elevate their legs',
-        'Step 3: Check for breathing',
-      ],
-    ),
-    Situation(
-      emoji: '💔',
-      text: 'Heart Attack',
-      steps: [
-        'Step 1: Call emergency services',
-        'Step 2: Keep the person calm',
-        'Step 3: Administer CPR if needed',
-      ],
-    ),
-    Situation(
-      emoji: '😤',
-      text: 'Asphyxia',
-      steps: [
-        'Step 1: Check for obstruction',
-        'Step 2: Encourage coughing',
-        'Step 3: Administer back blows if necessary',
-      ],
-    ),
-    Situation(
-      emoji: '🩸',
-      text: 'Bleeding',
-      steps: [
-        'Step 1: Apply direct pressure',
-        'Step 2: Elevate the wound',
-        'Step 3: Seek medical help if needed',
-      ],
-    ),
-    Situation(
-      emoji: '☀️',
-      text: 'Sunstroke',
-      steps: [
-        'Step 1: Move to a cool place',
-        'Step 2: Apply cool cloths',
-        'Step 3: Seek medical assistance if symptoms persist',
-      ],
-    ),
-    Situation(
-      emoji: '🔥',
-      text: 'Burn',
-      steps: [
-        'Step 1: Cool the burn under running water',
-        'Step 2: Cover with a clean cloth',
-        'Step 3: Do not apply ice directly',
-      ],
-    ),
-    Situation(
-      emoji: '⚡',
-      text: 'Electric Shock',
-      steps: [
-        'Step 1: Call emergency services',
-        'Step 2: Do not touch the person if they are still in contact with the source',
-        'Step 3: Perform CPR if necessary and trained',
-      ],
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    // Define the situations list within the build method to access context
+    final List<Situation> situations = [
+      Situation(
+        emoji: '🩹',
+        text: AppLocalizations.of(context)!.injuries,
+        steps: [
+          AppLocalizations.of(context)!.injuriesStep1,
+          AppLocalizations.of(context)!.injuriesStep2,
+          AppLocalizations.of(context)!.injuriesStep3,
+          AppLocalizations.of(context)!.injuriesStep4,
+        ],
+      ),
+      Situation(
+        emoji: '😵',
+        text: AppLocalizations.of(context)!.fainting,
+        steps: [
+          AppLocalizations.of(context)!.faintingStep1,
+          AppLocalizations.of(context)!.faintingStep2,
+          AppLocalizations.of(context)!.faintingStep3,
+        ],
+      ),
+      Situation(
+        emoji: '💔',
+        text: AppLocalizations.of(context)!.heart_attack,
+        steps: [
+          AppLocalizations.of(context)!.heartAttackStep1,
+          AppLocalizations.of(context)!.heartAttackStep2,
+          AppLocalizations.of(context)!.heartAttackStep3,
+        ],
+      ),
+      Situation(
+        emoji: '😤',
+        text: AppLocalizations.of(context)!.asphyxia,
+        steps: [
+          AppLocalizations.of(context)!.asphyxiaStep1,
+          AppLocalizations.of(context)!.asphyxiaStep2,
+          AppLocalizations.of(context)!.asphyxiaStep3,
+        ],
+      ),
+      Situation(
+        emoji: '🩸',
+        text: AppLocalizations.of(context)!.bleeding,
+        steps: [
+          AppLocalizations.of(context)!.bleedingStep1,
+          AppLocalizations.of(context)!.bleedingStep2,
+          AppLocalizations.of(context)!.bleedingStep3,
+        ],
+      ),
+      Situation(
+        emoji: '☀️',
+        text: AppLocalizations.of(context)!.heat_strokes,
+        steps: [
+          AppLocalizations.of(context)!.heatStrokesStep1,
+          AppLocalizations.of(context)!.heatStrokesStep2,
+          AppLocalizations.of(context)!.heatStrokesStep3,
+        ],
+      ),
+      Situation(
+        emoji: '🔥',
+        text: AppLocalizations.of(context)!.burn,
+        steps: [
+          AppLocalizations.of(context)!.burnStep1,
+          AppLocalizations.of(context)!.burnStep2,
+          AppLocalizations.of(context)!.burnStep3,
+        ],
+      ),
+      Situation(
+        emoji: '⚡',
+        text: AppLocalizations.of(context)!.electric_injuries,
+        steps: [
+          AppLocalizations.of(context)!.electricInjuriesStep1,
+          AppLocalizations.of(context)!.electricInjuriesStep2,
+          AppLocalizations.of(context)!.electricInjuriesStep3,
+        ],
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Aid Situations'),
+        title: Text(AppLocalizations.of(context)!.situations),
         actions: [
           IconButton(
             onPressed: () {
