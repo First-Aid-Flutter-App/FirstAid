@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CPRTimerWidget extends ConsumerWidget {
   const CPRTimerWidget({super.key});
-  
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _compressionCount = ref.watch(cprTimerProvider);
@@ -17,7 +17,7 @@ class CPRTimerWidget extends ConsumerWidget {
       Future.microtask(
           () => _promptRescueBreaths(context, ref, _timerNotifier));
     }
-    
+
     return Column(
       children: [
         const SizedBox(height: 8),
@@ -50,11 +50,11 @@ class CPRTimerWidget extends ConsumerWidget {
           child: _timerNotifier.isRunning
               ? ElevatedButton(
                   onPressed: _timerNotifier.stopTimer,
-                  child: const Text(AppLocalizations.of(context)!.stopCprTimer),
+                  child: Text(AppLocalizations.of(context)!.stopCprTimer),
                 )
               : ElevatedButton(
                   onPressed: _timerNotifier.startTimer,
-                  child: const Text(AppLocalizations.of(context)!.startCprTimer),
+                  child: Text(AppLocalizations.of(context)!.startCprTimer),
                 ),
         ),
       ],
@@ -68,12 +68,11 @@ class CPRTimerWidget extends ConsumerWidget {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(AppLocalizations.of(context)!.cprBreathPromptTitle),
-          content: const Text(
-              AppLocalizations.of(context)!.cprBreathPromptText),
+          title: Text(AppLocalizations.of(context)!.cprBreathPromptTitle),
+          content: Text(AppLocalizations.of(context)!.cprBreathPromptText),
           actions: [
             TextButton(
-              child: const Text(AppLocalizations.of(context)!.continueButton),
+              child: Text(AppLocalizations.of(context)!.continueButton),
               onPressed: () {
                 Navigator.of(context).pop();
                 ref.read(needsRescueBreathsProvider.notifier).state = false;
