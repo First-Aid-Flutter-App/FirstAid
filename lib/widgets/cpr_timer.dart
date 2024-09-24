@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firstaid/notifiers/cpr_timer_notifier.dart';
+
 class CPRTimerWidget extends ConsumerWidget {
   const CPRTimerWidget({super.key});
 
@@ -11,7 +12,8 @@ class CPRTimerWidget extends ConsumerWidget {
     final needsRescueBreaths = ref.watch(needsRescueBreathsProvider);
 
     if (needsRescueBreaths) {
-      Future.microtask(() => _promptRescueBreaths(context, ref, _timerNotifier));
+      Future.microtask(
+          () => _promptRescueBreaths(context, ref, _timerNotifier));
     }
 
     return Column(
@@ -22,8 +24,7 @@ class CPRTimerWidget extends ConsumerWidget {
         Center(
           child: Text(
             'Compressions: $_compressionCount',
-            style: const TextStyle(
-                fontSize: 32, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
         ),
 
@@ -34,7 +35,9 @@ class CPRTimerWidget extends ConsumerWidget {
           child: Icon(
             Icons.favorite,
             size: 100,
-            color: _compressionCount % 2 == 0 ? Colors.red : Colors.grey,  // Alternate colors to simulate a beat
+            color: _compressionCount % 2 == 0
+                ? Colors.red
+                : Colors.grey, // Alternate colors to simulate a beat
           ),
         ),
 
@@ -56,14 +59,16 @@ class CPRTimerWidget extends ConsumerWidget {
     );
   }
 
-  Future<void> _promptRescueBreaths(BuildContext context, WidgetRef ref, CPRTimerNotifier timerNotifier) async {
+  Future<void> _promptRescueBreaths(BuildContext context, WidgetRef ref,
+      CPRTimerNotifier timerNotifier) async {
     await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text("Give 2 Rescue Breaths"),
-          content: const Text("Press 'Continue' after performing the rescue breaths."),
+          content: const Text(
+              "Press 'Continue' after performing the rescue breaths."),
           actions: [
             TextButton(
               child: const Text("Continue"),

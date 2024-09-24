@@ -15,15 +15,14 @@ class CPRTimerNotifier extends StateNotifier<int> {
     if (!isRunning) {
       isRunning = true;
       state = 0;
-      _timer = Timer.periodic(
-        Duration(milliseconds: (60000 / bpm).round()), (timer) {
-          state += 1;
-          if (state == 30) {
-            stopTimer();
-            needsRescueBreaths.state = true;
-          }
+      _timer = Timer.periodic(Duration(milliseconds: (60000 / bpm).round()),
+          (timer) {
+        state += 1;
+        if (state == 30) {
+          stopTimer();
+          needsRescueBreaths.state = true;
         }
-      );
+      });
     }
   }
 

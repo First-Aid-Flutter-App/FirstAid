@@ -10,8 +10,8 @@ class MainScreen extends ConsumerWidget {
     SituationSelectionScreen(),
     CPRGuideScreen(),
     MyInfoScreen(),
-    ];
-  
+  ];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _currentIndex = ref.watch(currentIndexProvider);
