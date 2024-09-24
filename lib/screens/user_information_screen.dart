@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyInfoScreen extends StatefulWidget {
   const MyInfoScreen({super.key});
@@ -39,7 +40,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
     await prefs.setString(
         'medicalConditions', _medicalConditionsController.text);
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Health information saved!')),
+      SnackBar(content: Text(AppLocalizations.of(context)!.healthInfoSaved)),
     );
   }
 
@@ -47,7 +48,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Health Info'),
+        title: Text(AppLocalizations.of(context)!.myHealthInfo),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -55,31 +56,31 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
           children: [
             TextField(
               controller: _bloodTypeController,
-              decoration: const InputDecoration(
-                labelText: 'Blood Type',
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.bloodType,
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: _allergiesController,
-              decoration: const InputDecoration(
-                labelText: 'Allergies',
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.allergies,
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: _medicalConditionsController,
-              decoration: const InputDecoration(
-                labelText: 'Medical Conditions',
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.medicalConditions,
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: _saveHealthInfo,
-              child: const Text('Save Info'),
+              child: Text(AppLocalizations.of(context)!.saveInfo),
             ),
           ],
         ),

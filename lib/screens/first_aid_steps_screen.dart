@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firstaid/notifiers/first_aid_steps_notifier.dart';
 import 'package:firstaid/providers/situation_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FirstAidStepsScreen extends ConsumerWidget {
   final String id;
@@ -16,7 +17,8 @@ class FirstAidStepsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Aid Steps'),
+        title: Text(
+            AppLocalizations.of(context)?.firstAidSteps ?? 'First Aid Steps'),
       ),
       body: ListView.builder(
         itemCount: situation.steps.length,

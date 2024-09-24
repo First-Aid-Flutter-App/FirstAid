@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'situation_selection_screen.dart';
 import 'user_information_screen.dart';
 import 'cpr_guide_screen.dart';
@@ -15,6 +16,7 @@ class MainScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _currentIndex = ref.watch(currentIndexProvider);
+    final localizations = AppLocalizations.of(context);
 
     return Scaffold(
       body: _screens[_currentIndex],
@@ -26,15 +28,15 @@ class MainScreen extends ConsumerWidget {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.medical_services),
-            label: 'Select Injury',
+            label: localizations?.selectInjury,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'CPR Guide',
+            label: localizations?.cprGuide,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'My Profile',
+            label: localizations?.myProfile,
           ),
         ],
       ),

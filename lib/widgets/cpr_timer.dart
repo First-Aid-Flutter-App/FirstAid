@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firstaid/notifiers/cpr_timer_notifier.dart';
+import 'dart:async';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CPRTimerWidget extends ConsumerWidget {
   const CPRTimerWidget({super.key});
-
+  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _compressionCount = ref.watch(cprTimerProvider);
@@ -48,11 +50,11 @@ class CPRTimerWidget extends ConsumerWidget {
           child: _timerNotifier.isRunning
               ? ElevatedButton(
                   onPressed: _timerNotifier.stopTimer,
-                  child: const Text('Stop'),
+                  child: const Text(AppLocalizations.of(context)!.stopCprTimer),
                 )
               : ElevatedButton(
                   onPressed: _timerNotifier.startTimer,
-                  child: const Text('Start CPR Timer'),
+                  child: const Text(AppLocalizations.of(context)!.startCprTimer),
                 ),
         ),
       ],
@@ -66,12 +68,12 @@ class CPRTimerWidget extends ConsumerWidget {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Give 2 Rescue Breaths"),
+          title: const Text(AppLocalizations.of(context)!.cprBreathPromptTitle),
           content: const Text(
-              "Press 'Continue' after performing the rescue breaths."),
+              AppLocalizations.of(context)!.cprBreathPromptText),
           actions: [
             TextButton(
-              child: const Text("Continue"),
+              child: const Text(AppLocalizations.of(context)!.continueButton),
               onPressed: () {
                 Navigator.of(context).pop();
                 ref.read(needsRescueBreathsProvider.notifier).state = false;
