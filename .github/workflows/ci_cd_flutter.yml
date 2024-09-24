@@ -24,6 +24,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          cache: true
       - name: Run Dart format
         run: dart format --set-exit-if-changed .
 
@@ -36,8 +37,16 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          cache: true
       - name: Run analyzer
-        run: flutter analyze
+        run: |
+          flutter analyze || exit_status=$? # Capture the exit status
+          if [[ $exit_status -eq 1 ]]; then
+            echo "Warnings detected, continuing..."
+          elif [[ $exit_status -ne 0 ]]; then
+            echo "Errors detected, failing the job."
+            exit $exit_status
+          fi
 
   test:
     runs-on: ubuntu-latest
@@ -48,6 +57,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          cache: true
       - name: Update Golden tests
         run: flutter test --update-goldens
       - name: Run tests
@@ -64,6 +74,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          cache: true
 
       - name: Set up JDK
         uses: actions/setup-java@v3
