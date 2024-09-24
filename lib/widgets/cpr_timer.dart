@@ -13,7 +13,7 @@ class CPRTimerWidget extends ConsumerWidget {
     if (needsRescueBreaths) {
       Future.microtask(() => _promptRescueBreaths(context, ref, _timerNotifier));
     }
-
+    
     return Column(
       children: [
         const SizedBox(height: 8),
@@ -22,8 +22,7 @@ class CPRTimerWidget extends ConsumerWidget {
         Center(
           child: Text(
             'Compressions: $_compressionCount',
-            style: const TextStyle(
-                fontSize: 32, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
         ),
 
@@ -34,7 +33,9 @@ class CPRTimerWidget extends ConsumerWidget {
           child: Icon(
             Icons.favorite,
             size: 100,
-            color: _compressionCount % 2 == 0 ? Colors.red : Colors.grey,  // Alternate colors to simulate a beat
+            color: _compressionCount % 2 == 0
+                ? Colors.red
+                : Colors.grey, // Alternate colors to simulate a beat
           ),
         ),
 

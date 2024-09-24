@@ -7,7 +7,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('end-to-end test', () {
-    testWidgets('Navigation from situation_selection_screen to first_aid_steps_screen', (WidgetTester tester) async {
+    testWidgets(
+        'Navigation from situation_selection_screen to first_aid_steps_screen',
+        (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: SituationSelectionScreen(),
       ));

@@ -36,7 +36,8 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('bloodType', _bloodTypeController.text);
     await prefs.setString('allergies', _allergiesController.text);
-    await prefs.setString('medicalConditions', _medicalConditionsController.text);
+    await prefs.setString(
+        'medicalConditions', _medicalConditionsController.text);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Health information saved!')),
     );
