@@ -15,7 +15,7 @@ class CPRTimerWidget extends ConsumerWidget {
       Future.microtask(
           () => _promptRescueBreaths(context, ref, _timerNotifier));
     }
-
+    
     return Column(
       children: [
         const SizedBox(height: 8),
