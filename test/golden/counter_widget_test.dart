@@ -28,9 +28,7 @@ void main() {
     await tester.tap(find.byType(SituationCard));
     await tester.pumpAndSettle();
 
-    await expectLater(
-      find.byType(SituationCard),
-      matchesGoldenFile('goldens/counter_widget_1.png')
-    );
+    await expectLater(find.byType(SituationCard),
+        matchesGoldenFile('goldens/counter_widget_1.png'));
   });
 }

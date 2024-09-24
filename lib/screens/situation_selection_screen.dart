@@ -90,12 +90,11 @@ class SituationSelectionScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MyInfoScreen(),
-                )
-              );
-            }, 
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyInfoScreen(),
+                  ));
+            },
             icon: const Icon(Icons.info_outline),
             iconSize: 35,
           )
@@ -114,7 +113,8 @@ class SituationSelectionScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FirstAidStepsScreen(steps: situations[index].steps),
+                  builder: (context) =>
+                      FirstAidStepsScreen(steps: situations[index].steps),
                 ),
               );
             },
