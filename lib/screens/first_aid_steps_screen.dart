@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firstaid/notifiers/first_aid_steps_notifier.dart';
+import 'package:firstaid/providers/situation_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class FirstAidStepsScreen extends StatefulWidget {
-  final List<String> steps;
+class FirstAidStepsScreen extends ConsumerWidget {
+  final String id;
 
-  FirstAidStepsScreen({required this.steps});
-
-  @override
-  _FirstAidStepsScreenState createState() => _FirstAidStepsScreenState();
-}
-
-class _FirstAidStepsScreenState extends State<FirstAidStepsScreen> {
-  late List<bool> _checked;
+  FirstAidStepsScreen({super.key, required this.id});
 
   @override
-  void initState() {
-    super.initState();
-    _checked = List<bool>.filled(widget.steps.length, false);
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final situation = ref.watch(situationProvider(id));
+    final _checked = ref.watch(firstAidStepsProvider(id));
+    final _stepsNotifier = ref.read(firstAidStepsProvider(id).notifier);
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
             AppLocalizations.of(context)?.firstAidSteps ?? 'First Aid Steps'),
       ),
       body: ListView.builder(
-        itemCount: widget.steps.length,
+        itemCount: situation.steps.length,
         itemBuilder: (context, index) {
           return Card(
             margin: EdgeInsets.all(8),
@@ -35,12 +29,10 @@ class _FirstAidStepsScreenState extends State<FirstAidStepsScreen> {
               leading: Checkbox(
                 value: _checked[index],
                 onChanged: (bool? value) {
-                  setState(() {
-                    _checked[index] = value ?? false;
-                  });
+                  _stepsNotifier.toggleStep(id, index);
                 },
               ),
-              title: Text(widget.steps[index]),
+              title: Text(situation.steps[index]),
             ),
           );
         },

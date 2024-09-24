@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/situation.dart';
 import 'first_aid_steps_screen.dart';
 import '../widgets/situation_card.dart';
+import 'package:firstaid/providers/situation_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SituationSelectionScreen extends StatelessWidget {
@@ -116,7 +117,7 @@ class SituationSelectionScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      FirstAidStepsScreen(steps: situations[index].steps),
+                      FirstAidStepsScreen(id: situations[index].text),
                 ),
               );
             },

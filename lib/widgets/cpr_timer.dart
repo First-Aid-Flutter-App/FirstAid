@@ -1,75 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firstaid/notifiers/cpr_timer_notifier.dart';
 import 'dart:async';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CPRTimerWidget extends StatefulWidget {
-  @override
-  _CPRTimerWidgetState createState() => _CPRTimerWidgetState();
-}
-
-class _CPRTimerWidgetState extends State<CPRTimerWidget> {
-  Timer? _timer;
-  int _compressionCount = 0;
-  bool isRunning = false;
-  double bpm = 110;
-
-  void startTimer() {
-    setState(() {
-      isRunning = true;
-      _compressionCount = 0;
-    });
-
-    _timer = Timer.periodic(Duration(milliseconds: (60000 / bpm).round()),
-        (Timer timer) {
-      setState(() {
-        _compressionCount++;
-      });
-
-      if (_compressionCount == 30) {
-        _timer!.cancel();
-        promptRescueBreaths();
-      }
-    });
-  }
-
-  void stopTimer() {
-    setState(() {
-      _compressionCount = 0;
-      isRunning = false;
-    });
-    _timer?.cancel();
-  }
-
-  void promptRescueBreaths() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(AppLocalizations.of(context)!.cprBreathPromptTitle),
-          content: Text(AppLocalizations.of(context)!.cprBreathPromptText),
-          actions: [
-            TextButton(
-              child: Text(AppLocalizations.of(context)!.continueButton),
-              onPressed: () {
-                Navigator.of(context).pop();
-                startTimer(); // Restart the metronome after the rescue breaths
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+class CPRTimerWidget extends ConsumerWidget {
+  const CPRTimerWidget({super.key});
 
   @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _compressionCount = ref.watch(cprTimerProvider);
+    final _timerNotifier = ref.read(cprTimerProvider.notifier);
+    final needsRescueBreaths = ref.watch(needsRescueBreathsProvider);
 
-  @override
-  Widget build(BuildContext context) {
+    if (needsRescueBreaths) {
+      Future.microtask(
+          () => _promptRescueBreaths(context, ref, _timerNotifier));
+    }
+
     return Column(
       children: [
         const SizedBox(height: 8),
@@ -99,17 +47,41 @@ class _CPRTimerWidgetState extends State<CPRTimerWidget> {
 
         // Start/Stop Timer Button
         Center(
-          child: isRunning
+          child: _timerNotifier.isRunning
               ? ElevatedButton(
-                  onPressed: stopTimer,
+                  onPressed: _timerNotifier.stopTimer,
                   child: Text(AppLocalizations.of(context)!.stopCprTimer),
                 )
               : ElevatedButton(
-                  onPressed: startTimer,
+                  onPressed: _timerNotifier.startTimer,
                   child: Text(AppLocalizations.of(context)!.startCprTimer),
                 ),
         ),
       ],
+    );
+  }
+
+  Future<void> _promptRescueBreaths(BuildContext context, WidgetRef ref,
+      CPRTimerNotifier timerNotifier) async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.cprBreathPromptTitle),
+          content: Text(AppLocalizations.of(context)!.cprBreathPromptText),
+          actions: [
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.continueButton),
+              onPressed: () {
+                Navigator.of(context).pop();
+                ref.read(needsRescueBreathsProvider.notifier).state = false;
+                timerNotifier.startTimer();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
