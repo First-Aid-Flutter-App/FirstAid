@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'situation_selection_screen.dart';
 import 'user_information_screen.dart';
 import 'cpr_guide_screen.dart';
@@ -19,6 +20,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -31,15 +34,15 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.medical_services),
-            label: 'Select Injury',
+            label: localizations?.selectInjury,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'CPR Guide',
+            label: localizations?.cprGuide,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'My Profile',
+            label: localizations?.myProfile,
           ),
         ],
       ),

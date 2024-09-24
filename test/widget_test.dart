@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:firstaid/screens/first_aid_steps_screen.dart';
 import 'package:firstaid/screens/situation_selection_screen.dart';
 import 'package:firstaid/widgets/situation_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   testWidgets(
@@ -34,6 +36,13 @@ void main() {
       'situation_selection_screen displays situations and navigates to first_aid_steps_screen correctly',
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [Locale('en')],
       home: SituationSelectionScreen(),
     ));
 

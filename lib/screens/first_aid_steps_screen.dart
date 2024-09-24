@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FirstAidStepsScreen extends StatefulWidget {
   final List<String> steps;
@@ -22,7 +23,8 @@ class _FirstAidStepsScreenState extends State<FirstAidStepsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Aid Steps'),
+        title: Text(
+            AppLocalizations.of(context)?.firstAidSteps ?? 'First Aid Steps'),
       ),
       body: ListView.builder(
         itemCount: widget.steps.length,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CPRTimerWidget extends StatefulWidget {
   @override
@@ -45,12 +46,11 @@ class _CPRTimerWidgetState extends State<CPRTimerWidget> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Give 2 Rescue Breaths"),
-          content:
-              Text("Press 'Continue' after performing the rescue breaths."),
+          title: Text(AppLocalizations.of(context)!.cprBreathPromptTitle),
+          content: Text(AppLocalizations.of(context)!.cprBreathPromptText),
           actions: [
             TextButton(
-              child: Text("Continue"),
+              child: Text(AppLocalizations.of(context)!.continueButton),
               onPressed: () {
                 Navigator.of(context).pop();
                 startTimer(); // Restart the metronome after the rescue breaths
@@ -102,11 +102,11 @@ class _CPRTimerWidgetState extends State<CPRTimerWidget> {
           child: isRunning
               ? ElevatedButton(
                   onPressed: stopTimer,
-                  child: const Text('Stop'),
+                  child: Text(AppLocalizations.of(context)!.stopCprTimer),
                 )
               : ElevatedButton(
                   onPressed: startTimer,
-                  child: const Text('Start CPR Timer'),
+                  child: Text(AppLocalizations.of(context)!.startCprTimer),
                 ),
         ),
       ],

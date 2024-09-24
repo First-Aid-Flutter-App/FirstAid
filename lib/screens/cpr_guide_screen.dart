@@ -1,43 +1,40 @@
 import 'package:firstaid/widgets/cpr_steps.dart';
 import 'package:firstaid/widgets/cpr_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CPRGuideScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CPR Guide'),
+        title: Text(AppLocalizations.of(context)!.cprGuide),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           // Step 1: Check breathing
           CPRStepWidget(
-              title: 'Step 1: Check if the person is breathing.',
-              text:
-                  'Place your ear above the person\'s mouth, looking at the chest and search for signs of breathing.',
+              title: AppLocalizations.of(context)!.cprStep1Title,
+              text: AppLocalizations.of(context)!.cprStep1Text,
               imagePath: 'assets/cpr_step_1.png'),
 
           // Step 2: Chest compressions
           CPRStepWidget(
-              title: 'Step 2: Begin chest compressions.',
-              text:
-                  'Place your hands in the center of the chest and push hard and fast at a rate of 100-120 compressions per minute.',
+              title: AppLocalizations.of(context)!.cprStep2Title,
+              text: AppLocalizations.of(context)!.cprStep2Text,
               imagePath: 'assets/cpr_step_2.png'),
 
           // Step 3: Rescue breaths
           CPRStepWidget(
-              title: 'Step 3: Give rescue breaths.',
-              text:
-                  'Tilt the person\'s head back, lift the chin, pinch the nose, and give 2 rescue breaths, each lasting about 1 second.',
+              title: AppLocalizations.of(context)!.cprStep3Title,
+              text: AppLocalizations.of(context)!.cprStep3Text,
               imagePath: 'assets/cpr_step_3.png'),
 
           // Step 4: Repeat
           CPRStepWidget(
-              title: 'Step 4: Repeat the cycle.',
-              text:
-                  'Continue giving 30 chest compressions followed by 2 rescue breaths until help arrives.',
+              title: AppLocalizations.of(context)!.cprStep4Title,
+              text: AppLocalizations.of(context)!.cprStep4Text,
               imagePath: null),
 
           // Timer Section
