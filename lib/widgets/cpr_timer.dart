@@ -1,3 +1,4 @@
+import 'package:firstaid/widgets/heart_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firstaid/notifiers/cpr_timer_notifier.dart';
@@ -12,6 +13,8 @@ class CPRTimerWidget extends ConsumerWidget {
     final _compressionCount = ref.watch(cprTimerProvider);
     final _timerNotifier = ref.read(cprTimerProvider.notifier);
     final needsRescueBreaths = ref.watch(needsRescueBreathsProvider);
+
+    Color heartColor = _compressionCount % 2 == 0 ? Colors.red : Colors.grey;
 
     if (needsRescueBreaths) {
       Future.microtask(
@@ -34,15 +37,11 @@ class CPRTimerWidget extends ConsumerWidget {
 
         // Pulsating Heart Icon
         Center(
-          child: Icon(
-            Icons.favorite,
-            size: 100,
-            color: _compressionCount % 2 == 0
-                ? Colors.red
-                : Colors.grey, // Alternate colors to simulate a beat
+          child: CustomPaint(
+            size: Size(100, 100),
+            painter: HeartPainter(color: heartColor),
           ),
         ),
-
         const SizedBox(height: 32),
 
         // Start/Stop Timer Button
