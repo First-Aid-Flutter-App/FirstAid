@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:firstaid/screens/first_aid_steps_screen.dart';
 import 'package:firstaid/screens/situation_selection_screen.dart';
 import 'package:firstaid/widgets/situation_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -11,15 +12,30 @@ void main() {
   testWidgets(
       'first_aid_steps_screen displays all steps and handles checkboxes correctly',
       (WidgetTester tester) async {
-    final steps = ['Step 1: Do this', 'Step 2: Do that'];
+    final situation = Situation(
+      emoji: '🩹',
+      text: 'Injuries',
+      steps: [
+        'Step 1: Assess the situation',
+        'Step 2: Stop the bleeding',
+        'Step 3: Clean the wound',
+        'Step 4: Bandage the wound',
+      ],
+    );
 
-    await tester.pumpWidget(MaterialApp(
-      home: FirstAidStepsScreen(steps: steps),
-    ));
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          home: FirstAidStepsScreen(id: situation.text),
+        ),
+      ),
+    );
 
     expect(find.text('First Aid Steps'), findsOneWidget);
-    expect(find.text('Step 1: Do this'), findsOneWidget);
-    expect(find.text('Step 2: Do that'), findsOneWidget);
+    expect(find.text('Step 1: Assess the situation'), findsOneWidget);
+    expect(find.text('Step 2: Stop the bleeding'), findsOneWidget);
+    expect(find.text('Step 3: Clean the wound'), findsOneWidget);
+    expect(find.text('Step 4: Bandage the wound'), findsOneWidget);
 
     var checkboxes = tester.widgetList<Checkbox>(find.byType(Checkbox));
     for (var checkbox in checkboxes) {
@@ -35,16 +51,20 @@ void main() {
   testWidgets(
       'situation_selection_screen displays situations and navigates to first_aid_steps_screen correctly',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [Locale('en')],
-      home: SituationSelectionScreen(),
-    ));
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [Locale('en')],
+          home: SituationSelectionScreen(),
+        ),
+      ),
+    );
 
     expect(find.text('Injuries'), findsOneWidget);
     expect(find.text('Fainting'), findsOneWidget);
@@ -72,14 +92,18 @@ void main() {
       ],
     );
 
-    await tester.pumpWidget(MaterialApp(
-      home: Material(
-        child: SituationCard(
-          situation: situation,
-          onTap: () {},
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          home: Material(
+            child: SituationCard(
+              situation: situation,
+              onTap: () {},
+            ),
+          ),
         ),
       ),
-    ));
+    );
 
     expect(find.text('🩹'), findsOneWidget);
     expect(find.text('Injuries'), findsOneWidget);
@@ -100,16 +124,20 @@ void main() {
       ],
     );
 
-    await tester.pumpWidget(MaterialApp(
-      home: Material(
-        child: SituationCard(
-          situation: situation,
-          onTap: () {
-            wasTapped = true;
-          },
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          home: Material(
+            child: SituationCard(
+              situation: situation,
+              onTap: () {
+                wasTapped = true;
+              },
+            ),
+          ),
         ),
       ),
-    ));
+    );
 
     await tester.tap(find.byType(SituationCard));
     await tester.pumpAndSettle();
