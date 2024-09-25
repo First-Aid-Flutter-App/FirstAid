@@ -1,6 +1,4 @@
-import 'package:firstaid/screens/user_information_screen.dart';
 import 'package:flutter/material.dart';
-import '../models/situation.dart';
 import 'first_aid_steps_screen.dart';
 import '../widgets/situation_card.dart';
 import 'package:firstaid/providers/situation_provider.dart';
@@ -10,9 +8,7 @@ class SituationSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.situations)
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.situations)),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
