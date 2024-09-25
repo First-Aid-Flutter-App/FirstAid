@@ -1,8 +1,9 @@
 import 'package:firstaid/models/situation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:firstaid/notifiers/first_aid_steps_notifier.dart';
 
 void main() {
-  test('create a situation object #1', () {
+  test('create a situation object', () {
     final situation = Situation(
       emoji: '🩹',
       text: 'Injuries',
@@ -24,23 +25,15 @@ void main() {
     ]);
   });
 
-  test('create a situation object #2', () {
-    final situation = Situation(
-      emoji: '😵',
-      text: 'Fainting',
-      steps: [
-        'Step 1: Lay the person down',
-        'Step 2: Elevate their legs',
-        'Step 3: Check for breathing',
-      ],
-    );
-    expect(situation.emoji, '😵');
-    expect(situation.text, 'Fainting');
-    expect(situation.steps.length, 3);
-    expect(situation.steps, [
-      'Step 1: Lay the person down',
-      'Step 2: Elevate their legs',
-      'Step 3: Check for breathing',
-    ]);
+  test('first_aid_steps_notifier toggles steps correctly', () {
+    final notifier = FirstAidStepsNotifier('test', 3);
+
+    expect(notifier.state, [false, false, false]);
+
+    notifier.toggleStep('test', 1);
+    expect(notifier.state, [false, true, false]);
+
+    notifier.toggleStep('test', 1);
+    expect(notifier.state, [false, false, false]);
   });
 }

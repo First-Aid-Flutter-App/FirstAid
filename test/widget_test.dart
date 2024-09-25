@@ -5,6 +5,7 @@ import 'package:firstaid/screens/first_aid_steps_screen.dart';
 import 'package:firstaid/screens/situation_selection_screen.dart';
 import 'package:firstaid/widgets/situation_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firstaid/widgets/cpr_steps.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -143,5 +144,20 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(wasTapped, isTrue);
+  });
+
+  testWidgets('cpr_steps displays correct title, text, and image', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: CPRStepWidget(
+        title: 'Test Step',
+        text: 'This is a test description.',
+        imagePath: 'assets/cpr_step_1.png',
+      ),
+    ));
+
+    expect(find.text('Test Step'), findsOneWidget);
+    expect(find.text('This is a test description.'), findsOneWidget);
+
+    expect(find.byType(Image), findsOneWidget);
   });
 }

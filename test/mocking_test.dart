@@ -2,7 +2,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'mocking_test.mocks.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firstaid/widgets/cpr_timer.dart';
+import 'package:firstaid/notifiers/cpr_timer_notifier.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @GenerateMocks([SharedPreferences])
 void main() {
@@ -38,6 +43,31 @@ void main() {
       verify(mockPrefs.setString('bloodType', 'B+')).called(1);
       verify(mockPrefs.setString('allergies', 'None')).called(1);
       verify(mockPrefs.setString('medicalConditions', 'Diabetes')).called(1);
+    });
+  });
+
+  group('Riverpod test for cpr_timer timer', () {
+    testWidgets('cpr_timer displays correct compression count', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            cprTimerProvider.overrideWith((ref) => CPRTimerNotifier(110, ref.read(needsRescueBreathsProvider.notifier))),
+          ],
+          child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: [Locale('en')],
+            home: CPRTimerWidget()
+          ),
+        ),
+      );
+
+      expect(find.text('Compressions: 0'), findsOneWidget);
+
+      await tester.tap(find.text('Start CPR Timer'));
+      await tester.pump();
+      await tester.pump(Duration(seconds: 1));
+
+      expect(find.text('Compressions: 1'), findsOneWidget);
     });
   });
 }
