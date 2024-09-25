@@ -146,7 +146,8 @@ void main() {
     expect(wasTapped, isTrue);
   });
 
-  testWidgets('cpr_steps displays correct title, text, and image', (WidgetTester tester) async {
+  testWidgets('cpr_steps displays correct title, text, and image',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
       home: CPRStepWidget(
         title: 'Test Step',

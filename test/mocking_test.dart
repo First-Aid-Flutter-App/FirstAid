@@ -47,17 +47,18 @@ void main() {
   });
 
   group('Riverpod test for cpr_timer timer', () {
-    testWidgets('cpr_timer displays correct compression count', (WidgetTester tester) async {
+    testWidgets('cpr_timer displays correct compression count',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            cprTimerProvider.overrideWith((ref) => CPRTimerNotifier(110, ref.read(needsRescueBreathsProvider.notifier))),
+            cprTimerProvider.overrideWith((ref) => CPRTimerNotifier(
+                110, ref.read(needsRescueBreathsProvider.notifier))),
           ],
           child: MaterialApp(
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: [Locale('en')],
-            home: CPRTimerWidget()
-          ),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: [Locale('en')],
+              home: CPRTimerWidget()),
         ),
       );
 
