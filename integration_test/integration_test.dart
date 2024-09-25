@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:firstaid/screens/situation_selection_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -10,9 +11,13 @@ void main() {
     testWidgets(
         'Navigation from situation_selection_screen to first_aid_steps_screen',
         (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: SituationSelectionScreen(),
-      ));
+      await tester.pumpWidget(
+        ProviderScope(
+          child: MaterialApp(
+            home: SituationSelectionScreen(),
+          ),
+        ),
+      );
 
       expect(find.text('Injuries'), findsOneWidget);
       await tester.tap(find.text('Injuries'));
