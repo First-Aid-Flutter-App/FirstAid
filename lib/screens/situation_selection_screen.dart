@@ -11,20 +11,7 @@ class SituationSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.situations),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyInfoScreen(),
-                  ));
-            },
-            icon: const Icon(Icons.info_outline),
-            iconSize: 35,
-          )
-        ],
+        title: Text(AppLocalizations.of(context)!.situations)
       ),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
