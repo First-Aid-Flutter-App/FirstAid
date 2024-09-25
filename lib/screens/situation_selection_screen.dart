@@ -1,14 +1,18 @@
 import 'package:firstaid/screens/user_information_screen.dart';
+import 'package:firstaid/theme/app_theme_provider.dart';
 import 'package:flutter/material.dart';
 import '../models/situation.dart';
 import 'first_aid_steps_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../widgets/situation_card.dart';
 import 'package:firstaid/providers/situation_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SituationSelectionScreen extends StatelessWidget {
+class SituationSelectionScreen extends ConsumerWidget {
+  
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _appThemeStateProvider = ref.read(appThemeStateProvider);
     // Define the situations list within the build method to access context
     final List<Situation> situations = [
       Situation(
@@ -91,14 +95,8 @@ class SituationSelectionScreen extends StatelessWidget {
         title: Text(AppLocalizations.of(context)!.situations),
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyInfoScreen(),
-                  ));
-            },
-            icon: const Icon(Icons.info_outline),
+            onPressed: () => _appThemeStateProvider.toggleAppTheme(context),
+            icon: const Icon(Icons.dark_mode),
             iconSize: 35,
           )
         ],
